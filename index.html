@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaibhav Pradip Keni - Full Stack Developer</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.03) 2px,
+                rgba(255,255,255,0.03) 4px
+            );
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .name {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .title {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .main-content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .summary {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+
+        .experience-item, .project-item {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover, .project-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .job-header, .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .job-title, .project-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .company, .tech-stack {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .duration {
+            font-size: 0.9em;
+            color: #777;
+            background: #e9ecef;
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .responsibilities {
+            list-style: none;
+        }
+
+        .responsibilities li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .responsibilities li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 0.8em;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-top: 3px solid #667eea;
+        }
+
+        .skill-category-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .education, .languages, .interests {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .attributes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .attribute {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .attribute:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.3);
+        }
+
+        @media print {
+            .print-btn { display: none; }
+            .container { box-shadow: none; margin: 0; }
+            .header::before { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .container { margin: 10px; }
+            .main-content { padding: 20px 15px; }
+            .name { font-size: 2em; }
+            .contact-info { flex-direction: column; gap: 10px; }
+            .job-header { flex-direction: column; align-items: flex-start; }
+            .print-btn { top: 10px; right: 10px; padding: 8px 15px; }
+        }
+		 
+    </style>
+</head>
+<body>
+    
+    <button class="print-btn" id="downloadBtn">⬇️ Download Resume PDF</button>
+    <div class="container" id="resume">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="name">VAIBHAV PRADIP KENI</h1>
+                <p class="title">Full Stack Developer & Team Lead</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24">
+                            <path d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"/>
+                        </svg>
+                        Mumbai, Maharashtra
+                    </div>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24">
+                            <path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/>
+                        </svg>
+                        +91 98678 18123
+                    </div>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24">
+                            <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+                        </svg>
+                        vaibhavkeni21@gmail.com
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="section">
+                <h2 class="section-title">Professional Summary</h2>
+                <p class="summary">
+                    Results-driven Full Stack Developer with 4+ years of progressive experience in enterprise web application development. Proven track record of leading cross-functional teams, implementing scalable solutions using modern technologies, and delivering complex projects on time. Specialized in Java Spring ecosystem, Angular frameworks, and cloud technologies with demonstrated expertise in GST compliance, TDS management, and business intelligence systems.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Professional Experience</h2>
+                
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Full Stack Developer & Team Leader</div>
+                            <div class="company">Tax-O-Smart | Mumbai, Maharashtra</div>
+                        </div>
+                        <div class="duration">April 2024 – Present</div>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Leading a team of 10 junior developers, providing technical guidance and mentorship</li>
+                        <li>Implementing Agile methodologies to streamline development processes and improve project delivery timelines by 40%</li>
+                        <li>Architecting enterprise-level applications using Spring Boot, Angular, and AWS infrastructure</li>
+                        <li>Establishing code quality standards, conducting regular code reviews, and reducing production bugs by 60%</li>
+                        <li>Collaborating with cross-functional teams to align technical solutions with business objectives</li>
+                        <li>Driving innovation in application development and infrastructure optimization</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Full Stack Developer</div>
+                            <div class="company">Tax-O-Smart | Mumbai, Maharashtra</div>
+                        </div>
+                        <div class="duration">April 2023 – March 2024</div>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Developed end-to-end web applications using Spring Boot, Java 11, and Angular 12+</li>
+                        <li>Designed and implemented RESTful APIs serving 10,000+ concurrent users</li>
+                        <li>Built scalable database solutions using MySQL and Oracle with optimized query performance</li>
+                        <li>Implemented asynchronous processing with RabbitMQ for handling large-scale operations</li>
+                        <li>Deployed and maintained applications on AWS infrastructure (EC2, EFS, VPC)</li>
+                        <li>Collaborated with UX/UI teams to create intuitive and responsive user interfaces</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Front End Developer</div>
+                            <div class="company">Tax-O-Smart | Mumbai, Maharashtra</div>
+                        </div>
+                        <div class="duration">April 2022 – March 2023</div>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Built responsive web interfaces using Angular, HTML5, CSS3, and modern JavaScript (ES6+)</li>
+                        <li>Created reusable UI components library, improving development efficiency by 50%</li>
+                        <li>Integrated REST APIs with front-end applications ensuring seamless data flow</li>
+                        <li>Implemented Bootstrap framework for mobile-first responsive design</li>
+                        <li>Conducted comprehensive cross-browser testing and performance optimization</li>
+                        <li>Actively participated in Agile ceremonies including daily stand-ups and sprint planning</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div>
+                            <div class="job-title">Front End Developer</div>
+                            <div class="company">Tax-O-Smart | Mumbai, Maharashtra</div>
+                        </div>
+                        <div class="duration">March 2021 – March 2022</div>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Developed interactive web interfaces using AngularJS, HTML5, and CSS3</li>
+                        <li>Implemented responsive design patterns with Bootstrap framework</li>
+                        <li>Built modular and scalable front-end architecture using component-based approach</li>
+                        <li>Integrated front-end applications with REST APIs for dynamic content rendering</li>
+                        <li>Conducted thorough UI testing to ensure optimal performance across devices</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Key Projects</h2>
+                
+                <div class="project-item">
+                    <div class="project-header">
+                        <div>
+                            <div class="project-title">GST-O-SMART</div>
+                            <div class="tech-stack">Java, Spring Boot, Angular, MySQL, RabbitMQ, AWS</div>
+                        </div>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Engineered comprehensive GST management platform supporting GSTR 1, 2, 3B, 6A, and 7 return submissions</li>
+                        <li>Implemented real-time GSTIN validation and reconciliation functionality reducing filing errors by 85%</li>
+                        <li>Built asynchronous processing architecture using RabbitMQ improving system performance by 60%</li>
+                        <li>Designed optimized MySQL database schema with efficient JSON file generation for government portals</li>
+                    </ul>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-header">
+                        <div>
+                            <div class="project-title">TDS-O-SMART</div>
+                            <div class="tech-stack">Java, Spring Boot, Angular, MySQL, RabbitMQ</div>
+                        </div>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Developed end-to-end TDS compliance platform with automated certificate generation</li>
+                        <li>Implemented bulk PAN validation system processing 10,000+ records simultaneously</li>
+                        <li>Integrated TRACES portal connectivity for seamless government data exchange</li>
+                        <li>Built bulk PDF signing functionality reducing processing time by 75%</li>
+                    </ul>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-header">
+                        <div>
+                            <div class="project-title">E-Invoice Analytics</div>
+                            <div class="tech-stack">Java, Spring Boot, Angular, MySQL, Business Intelligence</div>
+                        </div>
+                    </div>
+                    <ul class="responsibilities">
+                        <li>Built comprehensive e-invoicing platform with automated invoice generation and compliance</li>
+                        <li>Developed analytics engine with real-time dashboard insights for business intelligence</li>
+                        <li>Implemented multi-format report generation (Excel, XML, CSV, PDF) with dynamic filtering</li>
+                        <li>Created stock management analytics with demand forecasting and automated alerts</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <div class="skill-category-title">Programming Languages</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">HTML5</span>
+                            <span class="skill-tag">CSS3</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">Frameworks & Libraries</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Spring Boot</span>
+                            <span class="skill-tag">Spring MVC</span>
+                            <span class="skill-tag">Angular</span>
+                            <span class="skill-tag">AngularJS</span>
+                            <span class="skill-tag">Bootstrap</span>
+                            <span class="skill-tag">Hibernate</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">Database & Backend</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">Oracle</span>
+                            <span class="skill-tag">REST APIs</span>
+                            <span class="skill-tag">Microservices</span>
+                            <span class="skill-tag">RabbitMQ</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">Cloud & DevOps</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">Google Cloud</span>
+                            <span class="skill-tag">Digital Ocean</span>
+                            <span class="skill-tag">EC2</span>
+                            <span class="skill-tag">DynamoDB</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">Tools & Design</div>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Adobe Photoshop</span>
+                            <span class="skill-tag">Adobe Illustrator</span>
+                            <span class="skill-tag">Postman</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Agile</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Professional Attributes</h2>
+                <div class="attributes-grid">
+                    <div class="attribute">Team Leadership & Mentoring</div>
+                    <div class="attribute">Problem Solving & Innovation</div>
+                    <div class="attribute">Cross-functional Collaboration</div>
+                    <div class="attribute">Project Management</div>
+                    <div class="attribute">Agile Methodologies</div>
+                    <div class="attribute">Performance Optimization</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Education & Additional Information</h2>
+                <div class="education">
+                    <strong>Bachelor of Science in Information Technology</strong><br>
+                    M. L. Dahanukar College | 2020 | Grade: B+
+                </div>
+                
+                <div class="languages">
+                    <strong>Languages:</strong> English (Intermediate), Hindi (Fluent), Marathi (Proficient)
+                </div>
+                
+                <div class="interests">
+                    <strong>Interests:</strong> Technology Innovation, Emerging Tech Trends, Trekking, Puzzle Solving (Rubik's Cube)
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+<script>
+document.getElementById('downloadBtn').addEventListener('click', async () => {
+  const el = document.getElementById('resume');
+
+  const opt = {
+    margin:       [6, 6, 6, 6],          // top, left, bottom, right (mm when unit is 'mm')
+    filename:     'Vaibhav_Keni_Resume.pdf',
+    image:        { type: 'jpeg', quality: 1.00 },
+    html2canvas:  { scale: 2, useCORS: true, logging: false, scrollY: 0 },
+    pagebreak:    { mode: ['css','legacy','avoid-all'] }, // honors .pdf-pagebreak
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  // Build, then inject header/footer on every page before saving
+  const worker = html2pdf().from(el).set(opt).toPdf();
+
+  const pdf = await worker.get('pdf');
+  const total = pdf.internal.getNumberOfPages();
+
+  for (let i = 1; i <= total; i++) {
+    pdf.setPage(i);
+
+    // Header (left)
+    pdf.setFontSize(9);
+    pdf.text('My App · ' + new Date().toLocaleDateString(), 12, 8);
+
+    // Footer (right)
+    const w = pdf.internal.pageSize.getWidth();
+    const h = pdf.internal.pageSize.getHeight();
+    pdf.text(`Page ${i} of ${total}`, w - 12, h - 8, { align: 'right' });
+
+    // Optional: a thin footer line
+    pdf.setLineWidth(0.1);
+    pdf.line(12, h - 12, w - 12, h - 12);
+  }
+
+  worker.save(); // triggers download
+});
+</script>
+
+</html>
